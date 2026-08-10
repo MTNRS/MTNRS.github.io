@@ -1,147 +1,22 @@
-/**
- * ==========================================================================
- * MUTENROS Portfolio - Main Application Entry Point
- * ==========================================================================
- * 
- * This is the main JavaScript file that initializes all modules
- * and coordinates the portfolio application.
- * 
- * @author Dario (MutenRos)
- * @version 2.0.0
- * @license MIT
- * 
- * Modules:
- * - Background Effects (stars, parallax)
- * - Navigation (smooth scroll, active section)
- * - Projects (GitHub API integration)
- * - Matrix Easter Egg (Konami code)
- * ==========================================================================
- */
+const projects = [
+  { name: 'OpenJarvis', description: 'Plataforma de asistentes y agentes de IA orientada a automatizar trabajo real.', tags: ['Python', 'AI agents', 'Automation'], accent: '#c9b5ee', href: 'https://github.com/MTNRS/OpenJarvis' },
+  { name: 'Cuevas MotorSport', description: 'Experiencia web para servicios de automocion, alquiler y asistencia en carretera.', tags: ['JavaScript', 'Web', 'Product'], accent: '#f2a6c8', href: 'https://github.com/MTNRS/CuevasMotorSport' },
+  { name: 'MenuSpreader', description: 'Herramienta para crear, organizar y distribuir cartas digitales de forma sencilla.', tags: ['JavaScript', 'SaaS', 'UX'], accent: '#9edce2', href: 'https://github.com/MTNRS/MenuSpreader' },
+  { name: 'TokenMinimizer', description: 'Utilidad enfocada en reducir contexto y optimizar el consumo de tokens.', tags: ['Python', 'LLM', 'Developer tool'], accent: '#f3c6a8', href: 'https://github.com/MTNRS/TokenMinimizer' },
+  { name: 'HomeLab Indexer', description: 'Panel ligero para descubrir, ordenar y acceder a servicios de un homelab.', tags: ['Web', 'Infrastructure', 'Tools'], accent: '#b8d8ba', href: 'https://github.com/MTNRS/HomeLab-Indexer' },
+  { name: 'Proyecto Inspirador', description: 'Exploracion creativa de interfaces y experiencias digitales interactivas.', tags: ['Frontend', 'Creative code', 'UI'], accent: '#d9b8ee', href: 'https://github.com/MTNRS/ProyectoInspirador' }
+];
 
-import CONFIG from './config.js';
-import backgroundEffects from './modules/background.js';
-import navigation from './modules/navigation.js';
-import githubProjects from './modules/projects.js';
-import matrixEasterEgg from './modules/matrix-easter-egg.js';
+const grid = document.querySelector('#project-grid');
+grid.innerHTML = projects.map((project, index) => `
+  <a class="project-card" style="--accent:${project.accent}" href="${project.href}" target="_blank" rel="noreferrer">
+    <div class="project-card__top"><span class="project-card__number">${String(index + 1).padStart(2, '0')}</span><span class="project-card__status">Proyecto seleccionado</span></div>
+    <h3>${project.name}</h3><p>${project.description}</p>
+    <div class="project-card__footer"><div class="project-card__tags">${project.tags.map(tag => `<span>${tag}</span>`).join('')}</div><span class="project-card__arrow" aria-hidden="true">↗</span></div>
+  </a>`).join('');
 
-/**
- * Portfolio Application Class
- * Main application controller that initializes and coordinates all modules
- */
-class PortfolioApp {
-    /**
-     * Create portfolio application instance
-     */
-    constructor() {
-        this.isInitialized = false;
-        this.modules = {
-            background: backgroundEffects,
-            navigation: navigation,
-            projects: githubProjects,
-            easterEgg: matrixEasterEgg
-        };
-    }
-    
-    /**
-     * Initialize the portfolio application
-     * Called when DOM is ready
-     */
-    async init() {
-        if (this.isInitialized) {
-            console.warn('[PortfolioApp] Already initialized');
-            return;
-        }
-        
-        console.log('[PortfolioApp] Initializing...');
-        console.log(`[PortfolioApp] Version ${CONFIG.meta.author}`);
-        
-        try {
-            // Initialize all modules
-            this.initBackground();
-            this.initNavigation();
-            await this.initProjects();
-            this.initEasterEgg();
-            
-            this.isInitialized = true;
-            console.log('[PortfolioApp] Initialization complete');
-            
-            // Log easter egg hint (barely visible)
-            console.log('%c↑↑↓↓←→←→BA', 'color: #111; font-size: 1px;');
-            
-        } catch (error) {
-            console.error('[PortfolioApp] Initialization error:', error);
-        }
-    }
-    
-    /**
-     * Initialize background effects module
-     */
-    initBackground() {
-        try {
-            this.modules.background.init();
-        } catch (error) {
-            console.error('[PortfolioApp] Background init error:', error);
-        }
-    }
-    
-    /**
-     * Initialize navigation module
-     */
-    initNavigation() {
-        try {
-            this.modules.navigation.init();
-        } catch (error) {
-            console.error('[PortfolioApp] Navigation init error:', error);
-        }
-    }
-    
-    /**
-     * Initialize projects module (async - fetches from API)
-     */
-    async initProjects() {
-        try {
-            await this.modules.projects.init('#projects-grid');
-        } catch (error) {
-            console.error('[PortfolioApp] Projects init error:', error);
-        }
-    }
-    
-    /**
-     * Initialize easter egg module
-     */
-    initEasterEgg() {
-        try {
-            this.modules.easterEgg.init();
-        } catch (error) {
-            console.error('[PortfolioApp] Easter egg init error:', error);
-        }
-    }
-    
-    /**
-     * Cleanup and destroy all modules
-     */
-    destroy() {
-        Object.values(this.modules).forEach(module => {
-            if (typeof module.destroy === 'function') {
-                module.destroy();
-            }
-        });
-        this.isInitialized = false;
-        console.log('[PortfolioApp] Destroyed');
-    }
-}
-
-// Create application instance
-const app = new PortfolioApp();
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => app.init());
-} else {
-    // DOM already loaded
-    app.init();
-}
-
-// Export for debugging/testing
-export default app;
-export { PortfolioApp };
+document.querySelector('#year').textContent = new Date().getFullYear();
+const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+  if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+}), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
