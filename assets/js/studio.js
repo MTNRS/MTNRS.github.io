@@ -7,7 +7,7 @@ export const projects = [
       "Una galería fotográfica convertida en un espacio que se puede recorrer. Colecciones, imágenes y navegación dentro de un museo virtual.",
     href: "https://mv.integratechconsulting.es",
     action: "Explorar demo",
-    tone: "#dedccc",
+    tone: "#d1b5e8",
     image: "assets/projects/mv.jpg",
     mark: "MV",
   },
@@ -19,53 +19,53 @@ export const projects = [
       "Una jaula de MMA como punto de encuentro. Un entorno interactivo para descubrir el evento y sus secciones.",
     href: "https://vfl.integratechconsulting.es",
     action: "Entrar en la arena",
-    tone: "#cfddcd",
+    tone: "#a6dbe4",
     image: "assets/projects/vfl.jpg",
     mark: "VFL",
   },
   {
-    name: "Interfaces naturales",
-    kind: "PROTOTIPO ACADÉMICO · JAVASCRIPT",
+    name: "ITC Agents",
+    kind: "IA & AUTOMATIZACIÓN · OPENJARVIS",
     category: "software",
     description:
-      "Exploración de voz, gestos y realidad aumentada aplicada a un centro de incidencias. Cámara y micrófono bajo control del usuario.",
-    href: "https://github.com/MTNRS/ra2-interfaces-naturales-itc",
-    action: "Ver proyecto",
-    tone: "#d9dfef",
+      "Agentes especializados y un orquestador para coordinar tareas, herramientas e integraciones de Integra Tech Consulting.",
+    href: "https://github.com/MTNRS/itc-agents",
+    action: "Explorar código",
+    tone: "#c9b5ee",
+    mark: "✳",
+  },
+  {
+    name: "Integra Tech Consulting",
+    kind: "WEB · SOFTWARE & CONSULTORÍA",
+    category: "software",
+    description:
+      "El espacio de Integra Tech: software, inteligencia artificial y consultoría tecnológica reunidos en una experiencia web.",
+    href: "https://integratechconsulting.es",
+    action: "Visitar web",
+    tone: "#f2a6c8",
+    mark: "ITC",
+  },
+  {
+    name: "Crypto Trader Agent",
+    kind: "PROYECTO PERSONAL · PYTHON",
+    category: "software",
+    description:
+      "Agente de OpenJarvis para explorar la automatización del trading. Repositorio con implementación, configuración y pruebas.",
+    href: "https://github.com/MTNRS/crypto-trader-agent",
+    action: "Explorar código",
+    tone: "#9edce2",
     mark: "↗",
   },
   {
-    name: "Generador Windows",
-    kind: "HERRAMIENTA · WINDOWS X64",
+    name: "MTNRS · Estudio 3D",
+    kind: "PROYECTO PERSONAL · THREE.JS",
     category: "software",
     description:
-      "Adaptación a Windows del generador de informes de proyectos de Jocarsa. Con versión descargable y código público.",
-    href: "https://github.com/MTNRS/generador-windows",
-    action: "Código y descargas",
-    tone: "#edc8ad",
-    mark: "{ }",
-  },
-  {
-    name: "Acceso a datos",
-    kind: "PROYECTO ACADÉMICO · PYTHON",
-    category: "software",
-    description:
-      "Trabajo de acceso a datos con ficheros CSV y JSON, aplicado a un caso de gestión de Integra Tech.",
-    href: "https://github.com/MTNRS/AD-RA1-integratech-basededatos",
-    action: "Explorar código",
-    tone: "#dbe5bd",
-    mark: "[ ]",
-  },
-  {
-    name: "Estudio ERP & CRM",
-    kind: "TRABAJO ACADÉMICO · GESTIÓN",
-    category: "software",
-    description:
-      "Análisis de sistemas de gestión empresarial aplicado a Integra Tech Consulting: organización, procesos y herramientas.",
-    href: "https://github.com/MTNRS/SGE-RA1-integratech-crimson",
-    action: "Ver estudio",
-    tone: "#e6d8d9",
-    mark: "≡",
+      "Este portfolio: un pequeño estudio interactivo con piezas seleccionables, navegación 3D y una estética synthwave pastel.",
+    href: "https://github.com/MTNRS/MTNRS.github.io",
+    action: "Ver cómo está hecho",
+    tone: "#f3c6a8",
+    mark: "mt",
   },
 ];
 const grid = document.querySelector("#project-grid");
@@ -147,8 +147,8 @@ async function initScene() {
   const world = new T.Group();
   scene.add(world);
   world.rotation.y = -0.15;
-  scene.add(new T.HemisphereLight(0xffffff, 0x7d9672, 2.8));
-  const sun = new T.DirectionalLight(0xfff6dd, 4);
+  scene.add(new T.HemisphereLight(0xffffff, 0x76618e, 2.8));
+  const sun = new T.DirectionalLight(0xffddea, 4);
   sun.position.set(-5, 12, 7);
   sun.castShadow = true;
   sun.shadow.mapSize.set(1024, 1024);
@@ -160,13 +160,13 @@ async function initScene() {
   scene.add(fill);
   const mat = (color, metalness = 0) =>
     new T.MeshStandardMaterial({ color, roughness: 0.65, metalness });
-  const cream = mat("#f1ebd9"),
-    green = mat("#405f4d"),
-    mint = mat("#aaca94"),
-    dark = mat("#203c35"),
-    orange = mat("#dc7950"),
-    lilac = mat("#aaaecf"),
-    pink = mat("#d9b4af");
+  const cream = mat("#ded0ef"),
+    green = mat("#8070a8"),
+    mint = mat("#a8dce5"),
+    dark = mat("#342945"),
+    orange = mat("#f2a6c8"),
+    lilac = mat("#c9b5ee"),
+    pink = mat("#f3c6a8");
   function mesh(geo, material, parent, x = 0, y = 0, z = 0) {
     const m = new T.Mesh(geo, material);
     m.position.set(x, y, z);
@@ -201,7 +201,7 @@ async function initScene() {
       "position",
       new T.Float32BufferAttribute(gridPoints, 3),
     ),
-    new T.LineBasicMaterial({ color: 0xa7b697 }),
+    new T.LineBasicMaterial({ color: 0xa38bbe }),
   );
   world.add(gridLines);
   // An architectural arch anchors the miniature studio without hiding project objects.
@@ -232,9 +232,9 @@ async function initScene() {
     c.width = 128;
     c.height = 64;
     const ctx = c.getContext("2d");
-    ctx.fillStyle = "#edf0e4";
+    ctx.fillStyle = "#ede4f5";
     ctx.fillRect(0, 0, 128, 64);
-    ctx.fillStyle = "#203c35";
+    ctx.fillStyle = "#342945";
     ctx.font = "bold 30px monospace";
     ctx.textAlign = "center";
     ctx.fillText(text, 64, 43);
@@ -259,8 +259,8 @@ async function initScene() {
     );
     tag.rotation.x = -Math.PI / 3;
   });
-  // 01: picture wall, 02: octagonal arena, 03: gesture interface,
-  // 04: desktop tool, 05: database, 06: connected business blocks.
+  // 01: picture wall, 02: octagonal arena, 03: agent interface,
+  // 04: web studio, 05: trading data, 06: portfolio blocks.
   const photo = items[0];
   box(1.1, 1.4, 0.12, green, photo, 0, 1.02);
   box(0.9, 1.17, 0.04, cream, photo, 0, 1.02, 0.08);

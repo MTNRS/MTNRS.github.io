@@ -14,6 +14,6 @@ Desde esta carpeta: `python -m http.server 8080` y abrir http://localhost:8080. 
 - `assets/projects/`: capturas de las demos públicas.
 - `assets/vendor/`: Three.js distribuido localmente, con su licencia MIT.
 
-Arrastra la escena para girarla o selecciona sus piezas. Los seis botones proporcionan una alternativa accesible a la selección 3D. El giro automático es opcional; la escena deja de renderizar al quedar fuera de pantalla. Se respeta la preferencia de movimiento reducido y los proyectos siguen disponibles si WebGL falla. Las demos y el trabajo académico se identifican por separado.
+Arrastra la escena para girarla o selecciona sus piezas. Los seis botones proporcionan una alternativa accesible a la selección 3D. El giro automático es opcional; la escena deja de renderizar al quedar fuera de pantalla. Se respeta la preferencia de movimiento reducido y los proyectos siguen disponibles si WebGL falla. La selección incluye exclusivamente proyectos personales, herramientas y demos; no se incluyen entregas de clase. La paleta synthwave combina violeta oscuro, lavanda, rosa pastel y cian suave.
 
 Los archivos anteriores se conservan por compatibilidad; la portada usa exclusivamente `studio.css` y `studio.js`.
